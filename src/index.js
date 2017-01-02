@@ -1,17 +1,17 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from './App';
-// import './index.css';
-
-// ReactDOM.render(
-//   <App />,
-//   document.getElementById('root')
-// );
-
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-function playlist(state = [], action){
+
+const initialState = [
+	"Smells like teen spirit",
+	"Enter Sandman"
+	];
+
+function playlist(state = initialState, action){
 	if (action.type === 'ADD_TRACK'){
 		return [
 		...state,
@@ -20,17 +20,41 @@ function playlist(state = [], action){
 	}
 	return state;
 }
+
 const store = createStore(playlist);
 
-store.subscribe(()=>{
-	console.log('subscribe', store.getState());
-})
+ReactDOM.render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
+);
 
-store.dispatch({type: "ADD_TRACK", payload: 'Smels like spirit'});
-store.dispatch({type: "ADD_TRACK", payload: 'Enter Sandman'});
+///////////////////////////////////////////////
 
-const addTrackBtn = document.querySelectorAll('.addTrack')[0];
-addTrackBtn.addEventListener('click', ()=>{
-	const trackName = document.querySekectorAll('.trackInput')[0].value;
-	console.log('trackname', trackName);
-})
+// import { createStore } from 'redux';
+
+
+
+
+// const trackInput = document.querySelectorAll('.trackInput')[0];
+// const list = document.querySelectorAll('.list')[0];
+
+// store.subscribe(()=>{
+
+// 	list.innerHTML = '';
+// 	trackInput.value = '';
+// 	store.getState().forEach(track => {
+// 		const li = document.createElement('li');
+// 		li.textContent = track;
+// 		list.appendChild(li);
+// 	})
+
+// })
+
+// const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+// addTrackBtn.addEventListener('click', ()=>{
+// 	const trackName = trackInput.value;
+// 	store.dispatch({type: "ADD_TRACK", payload: trackName});
+// })
+
